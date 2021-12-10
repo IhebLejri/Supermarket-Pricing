@@ -15,7 +15,7 @@ namespace Business.Entities
 
         public decimal GetPrice()
         {
-            return 0;
+            return _calculator.GetPrice(this);
         }
 
         public int GetQuantity()

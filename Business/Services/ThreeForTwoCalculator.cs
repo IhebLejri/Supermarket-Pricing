@@ -6,8 +6,7 @@ namespace Business.Services
     {
         public override decimal GetPrice(IOrder order)
         {
-            return 0;
-
+            return (order.GetQuantity() - (order.GetQuantity() / 3)) * order.GetUnitPrice();
         }
     }
 }

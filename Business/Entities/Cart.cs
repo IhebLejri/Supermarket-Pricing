@@ -8,7 +8,12 @@ namespace Business.Entities
 
         public decimal GetTotal()
         {
-            return 0;
+            decimal total = 0;
+            foreach(Order o in Orders)
+            {
+                total += o.GetPrice();
+            }
+            return total;
         }
     }
 }
