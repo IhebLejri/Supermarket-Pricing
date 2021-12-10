@@ -4,7 +4,11 @@ namespace Business.Entities
 {
     public class Order : IOrder
     {
-     
+        private readonly IBasePriceCalculator _calculator;
+        public Order(IBasePriceCalculator calculator)
+        {
+            _calculator = calculator;
+        }
         public int Id { get; set; }
         public int Quantity { get; set; }
         public Product Product { get; set; }
