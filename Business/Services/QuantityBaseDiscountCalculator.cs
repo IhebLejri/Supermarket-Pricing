@@ -6,7 +6,18 @@ namespace Business.Services
     {
         public override decimal GetPrice(IOrder order)
         {
-            return 0;
+            if(order.GetQuantity() >= 5 && order.GetQuantity() < 10)
+            {
+                return base.GetPrice(order) * 0.9M;
+            }
+            else if(order.GetQuantity() >= 10)
+            {
+                return base.GetPrice(order) * 0.8M;
+            }
+            else
+            {
+                return base.GetPrice(order);
+            }
                 
         }
     }
