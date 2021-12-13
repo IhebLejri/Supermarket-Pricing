@@ -318,5 +318,65 @@ namespace Supermarket_Pricing.Test
             Assert.Equal(4, price);
         }
 
+        [Fact]
+        public void GetMixedStrategyPriceWithDiscountsTest()
+        {
+            //Arrange
+            IBasePriceCalculator baseCalculator = new BasePriceCalculator();
+            IBasePriceCalculator threeForTwoCalculator = new ThreeForTwoCalculator();
+            IBasePriceCalculator quantityBaseDiscountCalculator = new QuantityBaseDiscountCalculator();
+            Product product1 = new Product
+            {
+                Id = 1,
+                Name = "Can of soup",
+                QuantityInStock = 1,
+                UnitPrice = 1
+            };
+            Product product2 = new Product
+            {
+                Id = 2,
+                Name = "Bottle of milk",
+                QuantityInStock = 2,
+                UnitPrice = 2
+            };
+            Product product3 = new Product
+            {
+                Id = 3,
+                Name = "Bottle of juice",
+                QuantityInStock = 15,
+                UnitPrice = 3
+            };
+            Order order1 = new Order(baseCalculator)
+            {
+                Id = 1,
+                Product = product1,
+                Quantity = 2
+            };
+
+            Order order2 = new Order(threeForTwoCalculator)
+            {
+                Id = 2,
+                Product = product2,
+                Quantity = 7
+            };
+
+            Order order3 = new Order(quantityBaseDiscountCalculator)
+            {
+                Id = 3,
+                Product = product3,
+                Quantity = 13
+            };
+
+            Cart cart = new Cart()
+            {
+                Orders = new[] { order1, order2, order3 }
+            };
+            //Act
+            decimal price = cart.GetTotal();
+
+            //Assert
+            Assert.Equal(43.2M, price);
+        }
+
     }
 }
